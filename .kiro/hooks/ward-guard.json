@@ -1,0 +1,25 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Ward: check before installing",
+      "description": "Before any shell command, reminds the agent to check new npm packages with the Ward. Dogfoods our own MCP server during the build.",
+      "trigger": "PreToolUse",
+      "matcher": "shell",
+      "action": {
+        "type": "agent",
+        "prompt": "If this shell command installs or adds an npm package (npm install/i/add, pnpm add, yarn add), first call the necropolis-ward MCP tool check_package for each new package name. If the verdict is 'undead' or 'not-found', do not install it: tell me the cause of death and propose the certified twin or a living alternative instead. If the Ward server is not available yet, check the package's last publish date on the npm registry yourself and mention it."
+      },
+      "enabled": true
+    },
+    {
+      "name": "Ward: scan manifest on change",
+      "description": "Scans package.json files with the Ward CLI when the agent edits them. Enable once packages/ward-mcp ships its scan command.",
+      "trigger": "PostFileSave",
+      "matcher": "(^|/)package\\.json$",
+      "action": { "type": "command", "command": "pnpm --filter @necropolis/ward-mcp exec necropolis-ward scan package.json" },
+      "timeout": 120,
+      "enabled": false
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Tests after every spec task",
+      "description": "Runs the whole test suite after each spec task completes so a broken task is caught before the next one starts.",
+      "trigger": "PostTaskExecution",
+      "action": { "type": "command", "command": "pnpm -r --if-present test -- --run" },
+      "timeout": 600,
+      "enabled": true
+    }
+  ]
+}

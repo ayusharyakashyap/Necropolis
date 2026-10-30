@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Evidence log for the write-up",
+      "description": "When the agent finishes a turn, appends a timestamp and the current diff stat to .kiro/evidence-log.md. Raw material for KIRO_JOURNAL.md and the Devpost write-up.",
+      "trigger": "Stop",
+      "action": {
+        "type": "command",
+        "command": "{ printf '\\n### %s\\n' \"$(date -u +%Y-%m-%dT%H:%MZ)\"; git diff --stat 2>/dev/null | tail -n 1; } >> .kiro/evidence-log.md; true"
+      },
+      "timeout": 15,
+      "enabled": true
+    }
+  ]
+}

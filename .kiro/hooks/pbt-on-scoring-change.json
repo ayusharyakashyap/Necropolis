@@ -1,0 +1,23 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Property tests on scoring change",
+      "description": "Runs the Undead Index property-based tests whenever the agent edits scoring code. Enable once packages/census has a test script.",
+      "trigger": "PostFileSave",
+      "matcher": "packages/census/src/.*\\.ts$",
+      "action": { "type": "command", "command": "pnpm --filter @necropolis/census test -- --run" },
+      "timeout": 180,
+      "enabled": false
+    },
+    {
+      "name": "Mirror self-checks on harness change",
+      "description": "Runs the identity and mutant self-checks whenever the Mirror Test harness changes. Enable once packages/mirror exists.",
+      "trigger": "PostFileSave",
+      "matcher": "packages/mirror/src/.*\\.ts$",
+      "action": { "type": "command", "command": "pnpm --filter @necropolis/mirror test -- --run selfcheck" },
+      "timeout": 300,
+      "enabled": false
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+# Do NOT add .kiro/ here — it is required for judging.
+node_modules/
+dist/
+.env
+*.sqlite
+*.sqlite-journal
+resurrections/*/original/
